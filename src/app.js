@@ -29,7 +29,7 @@ const main = () => {
   console.log(chalk.blue(figlet.textSync("Notes App")));
   app();
 };
-// 
+// main function ^ includes chalk and can include figlet fonts.
 
 const app = async () => {
   const answers = await inquirer.prompt(topLevelQuestion);

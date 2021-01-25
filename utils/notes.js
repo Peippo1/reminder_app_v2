@@ -3,6 +3,16 @@ const chalk = require('chalk');
 const fs = require("fs");
 const { allNotes } = require("process");
 
+// add note function
+const addNote = (myNote) => {
+    const allNotes = loadNotes();
+    allNotes.push({ reminder: myNote });
+    console.log(
+      chalk.pink(`
+  added new note ${myNote}
+  `)
+  );
+}
 const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync("srs/notes.json");
@@ -12,6 +22,7 @@ const loadNotes = () => {
     return [];
   }
 };
+
 
 const addNote = (myNote) => {
   const allNotes = loadNotes();
@@ -24,16 +35,9 @@ const saveNotes = (allNotes) => {
   const notesJson = JSON.stringify(allNotes);
   fs.writeFileSync("notes.json", notes.Json);
 };
-// add note function
-const addNote = (myNote) => {
-  const allNotes = loadNotes();
-  allNotes.push({ reminder: myNote });
-  console.log(`
-  added new note ${myNote}
-  `)
 
-  saveNotes(allNotes);
-};
+
+
 // listing notes using mapping (recognise this from React)
 const listNotes = () => {
   const allNotes = loadNotes();
