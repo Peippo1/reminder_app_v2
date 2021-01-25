@@ -1,2 +1,2 @@
 # reminder_app_v2
-Reminder app v2 with Node.js
+a better version of the command line reminder app v2 with Node.js
