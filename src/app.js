@@ -1,4 +1,4 @@
-const figlett = require("figlet");
+const figlet = require("figlet");
 // impliment FIG font - Ascii art.
 const inquirer = require("inquirer");
 // allows for interaction with the user interface.
@@ -17,16 +17,12 @@ const topLevelQuestion = [
   },
 ];
 // add question function 
-const addQuestion =[ 
-    {type: "inut", name: "add", message: "what would you like to add?"}
-];
+const addQuestion =[{type: "input", name: "add", message: "what would you like to add?"}];
 
-const removeQuestion =[ 
-    {type: "input", name: "remove", message: "what would you like to remove?"}
-];
+const removeQuestion =[{type: "input", name: "remove", message: "what would you like to remove?"}];
 
 const main = () => {
-  console.log(chalk.blue(figlet.textSync("Notes App")));
+    console.log(chalk.blue(figlet.textSync("Notes App")));
   app();
 };
 // main function ^ includes chalk and can include figlet fonts.
@@ -35,27 +31,22 @@ const app = async () => {
   const answers = await inquirer.prompt(topLevelQuestion);
   if (answers.options == "add") {
     const answer = await inquirer.prompt(addQuestion);
-    console.log(answer.add);
+    addNote(answer.add);
     app();
     // above takes the note and passes it to the addNote function.
   } else if (answers.options == "list"){
     listNotes();
-    console.log("listing notes...");
     app();
-
-
 
   } else if (answers.options == "remove"){
+    listNotes();
     const answer = await inquirer.prompt(removeQuestion);
-    removeNote(answer.remote);
-    console.log("removing a note");
+    removeNote(answer.remove);
     app();
 
-
   } else if (answers.options == "exit") {
-    console.log("adding a note");
+    console.log("Ok, bye for now");
     }
-
 };
 
 main ();

@@ -1,18 +1,16 @@
-// try/catch to catch errors to prevent crashes
-const chalk = require('chalk');
 const fs = require("fs");
-const { allNotes } = require("process");
+const chalk = require('chalk');
 
 // add note function
 const addNote = (myNote) => {
     const allNotes = loadNotes();
     allNotes.push({ reminder: myNote });
-    console.log(
-      chalk.pink(`
-  added new note ${myNote}
-  `)
-  );
+    console.log(`
+  Added new note ${myNote}
+  `);
+  saveNotes(allNotes);
 }
+// try/catch to catch errors to prevent crashes
 const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync("srs/notes.json");
@@ -24,16 +22,10 @@ const loadNotes = () => {
 };
 
 
-const addNote = (myNote) => {
-  const allNotes = loadNotes();
-  allNotes.push({ reminder: myNote });
-};
-// then the user needs to put the note back in the file
-
 // this takes all notes passed to the array, saves them as Json and passes them to the file.
 const saveNotes = (allNotes) => {
   const notesJson = JSON.stringify(allNotes);
-  fs.writeFileSync("notes.json", notes.Json);
+  fs.writeFileSync("notes.json", notesJson);
 };
 
 
@@ -43,7 +35,7 @@ const listNotes = () => {
   const allNotes = loadNotes();
   allNotes.map((note, index) => {
     console.log(chalk.green(`
-    ${index + 1}. {note.reminder}
+    ${index + 1}. ${note.reminder}
     `));
   });
 };
@@ -65,11 +57,6 @@ function removeNote(noteToDelete) {
 
     saveNotes(allNotes);
     // saveNotes to save changes
-
-    // const notesToKeep = allNotes.filter((note) => {
-    //     return note.reminder != noteToDelete;
-    // });
-    // saveNotes(notesToKeep);
 };
 
 // export, list export items. e.g addNotes and list Notes
