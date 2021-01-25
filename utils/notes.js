@@ -1,4 +1,5 @@
 // try/catch to catch errors to prevent crashes
+const chalk = require('chalk');
 const fs = require("fs");
 const { allNotes } = require("process");
 
@@ -27,6 +28,9 @@ const saveNotes = (allNotes) => {
 const addNote = (myNote) => {
   const allNotes = loadNotes();
   allNotes.push({ reminder: myNote });
+  console.log(`
+  added new note ${myNote}
+  `)
 
   saveNotes(allNotes);
 };
@@ -34,18 +38,35 @@ const addNote = (myNote) => {
 const listNotes = () => {
   const allNotes = loadNotes();
   allNotes.map((note, index) => {
-    console.log(`${index + 1}. {note.reminder}`);
+    console.log(chalk.green(`
+    ${index + 1}. {note.reminder}
+    `));
   });
 };
 
 // Delete note function. filtering notes for If note in array = true then dont include. If false include.
 function removeNote(noteToDelete) {
     const allNotes = loadNotes();
-    const notesToKeep = allNotes.filter((note) => {
-        return note.reminder != noteToDelete;
-    });
-    saveNotes(notesToKeep);
-}
+
+    try {
+        const removedItem = allNotes.splice(noteToDelete - 1, 1);
+        // splicing index of removed note. indexed number first and then number of items to be removed.
+        console.log(`
+        Successfully removed ${removedItem[0].reminder}
+        `);
+        // removing item within the array.
+    } catch (error) {
+        console.log("Number out of range");
+    } 
+
+    saveNotes(allNotes);
+    // saveNotes to save changes
+
+    // const notesToKeep = allNotes.filter((note) => {
+    //     return note.reminder != noteToDelete;
+    // });
+    // saveNotes(notesToKeep);
+};
 
 // export, list export items. e.g addNotes and list Notes
 module.exports = {
